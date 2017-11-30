@@ -3,15 +3,14 @@ version: '3.1'
 services:
 
   owncloud:
-    image: erwin82/owncloud:latest
+    image: nextcloud:fpm
     links:
       - db
-      - redis
     environment:
       DEBUG: "true"
     volumes:
-      - ${ROOT_DIR}/html:/var/www/html
-      - ${ROOT_DIR}/data:/data
+      - "./root/html:/var/www/html"
+      - "./root/data:/data"
 
   redis:
     image: erwin82/redis-unpriv:latest
@@ -20,11 +19,11 @@ services:
     image: bitnami/mariadb:latest
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
-      MARIADB_USER: "ownclouddb"
-      MARIADB_PASSWORD: "ownclouddb"
-      MARIADB_DATABASE: "ownclouddb"
+      MARIADB_USER: "nextclouddb"
+      MARIADB_PASSWORD: "nextclouddb"
+      MARIADB_DATABASE: "nextclouddb"
     volumes:
-      - ${ROOT_DIR}/bitnami/mariadb:/bitnami/mariadb
+      - "./root/db:/bitnami/mariadb"
 
   nginx:
     image: erwin82/nginx:latest
@@ -33,5 +32,5 @@ services:
     links:
       - owncloud
     volumes:
-      - ${NGINX_CONF_DIR}:/nginx-in
-      - ${ROOT_DIR}/html:/var/www/html
+      - "./nginx-in:/nginx-in"
+      - "./root/html:/var/www/html"
