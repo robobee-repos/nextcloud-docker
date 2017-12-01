@@ -2,10 +2,11 @@ version: '3.1'
 
 services:
 
-  owncloud:
-    image: nextcloud:fpm
+  nextcloud:
+    image: robobeerun/nextcloud:latest
     links:
       - db
+      - redis
     environment:
       DEBUG: "true"
     volumes:
@@ -13,24 +14,24 @@ services:
       - "./root/data:/data"
 
   redis:
-    image: erwin82/redis-unpriv:latest
+    image: robobeerun/redis:latest
 
   db:
-    image: bitnami/mariadb:latest
+    image: centos/postgresql-96-centos7:9.6
     environment:
-      ALLOW_EMPTY_PASSWORD: "yes"
-      MARIADB_USER: "nextclouddb"
-      MARIADB_PASSWORD: "nextclouddb"
-      MARIADB_DATABASE: "nextclouddb"
+      POSTGRESQL_ADMIN_PASSWORD: "admin"
+      POSTGRESQL_USER: "nextclouddb"
+      POSTGRESQL_PASSWORD: "nextclouddb"
+      POSTGRESQL_DATABASE: "nextclouddb"
     volumes:
-      - "./root/db:/bitnami/mariadb"
+      - "./root/db:/pgdata"
 
   nginx:
-    image: erwin82/nginx:latest
+    image: robobeerun/nginx:latest
     ports:
       - 8080:8080
     links:
-      - owncloud
+      - nextcloud
     volumes:
       - "./nginx-in:/nginx-in"
       - "./root/html:/var/www/html"

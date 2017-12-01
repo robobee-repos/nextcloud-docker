@@ -14,9 +14,9 @@ fi
 if [[ $CRON == 0 ]]; then
   copy_files "/php-in" "/usr/local/etc/php/conf.d" "*.ini"
   copy_files "/php-fpm-in" "/usr/local/etc/php-fpm.d" "*.conf"
-  copy_files "/owncloud-in" "${WEB_ROOT}/config" "config.php"
-  sync_dir /usr/src/owncloud ${WEB_ROOT}
+  copy_files "/nextcloud-in" "${WEB_ROOT}/config" "config.php"
+  sync_dir /usr/src/nextcloud ${WEB_ROOT}
 fi
 
 cd "${WEB_ROOT}"
-exec "$@"
+exec ${BASH_CMD} /entrypoint-old.sh "${@}"

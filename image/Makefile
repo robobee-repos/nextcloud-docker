@@ -1,6 +1,6 @@
-REPOSITORY := erwin82
-NAME := owncloud
-VERSION ?= v10.0.3-fpm-r3-1
+REPOSITORY := robobeerun
+NAME := nextcloud
+VERSION ?= v12.0.3-fpm-r1-1
 
 build: _build ##@targets Builds the docker image.
 

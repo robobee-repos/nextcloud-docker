@@ -1,4 +1,4 @@
-FROM owncloud:10.0.3-fpm
+FROM nextcloud:12.0.3-fpm
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
@@ -37,7 +37,8 @@ ENV DEBUG="false" \
   PHP_OPCACHE_ENABLE_CLI="1" \
   PHP_OPCACHE_ENABLE="1" \
   PHP_OPCACHE_MEMORY_CONSUMPTION="128" \
-  PHP_OPCACHE_MAX_ACCELERATED_FILES="6000"
+  PHP_OPCACHE_MAX_ACCELERATED_FILES="10000" \
+  PHP_OPCACHE_REVALIDATE_FREQ="1"
 
 ADD rootfs/ /
 
@@ -45,7 +46,7 @@ RUN set -x \
   && chmod +x /*.sh \
   && mkdir -p /data \
   && ln -sf /dev/stdout /var/log/php-fpm-slow.log \
-  && mv /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint-old.sh
+  && mv /entrypoint.sh /entrypoint-old.sh
 
 VOLUME ["/data"]
 

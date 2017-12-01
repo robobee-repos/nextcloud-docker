@@ -2,10 +2,7 @@
 
 ## Description
 
-It uses the official [owncloud image](https://hub.docker.com/_/owncloud/) as the
-it can take input configuration files to override the image configuration
-files, allowing for Kubernetes config maps. Additionally, 
-configures a separate data directory.
+It uses the official [Nextcloud image](https://hub.docker.com/_/nextcloud/) as the it can take input configuration files to override the image configuration files, allowing for Kubernetes config maps. Additionally, configures a separate data directory.
 
 ## Environment Parameters
 
@@ -23,7 +20,8 @@ configures a separate data directory.
 | PHP_OPCACHE_ENABLE_CLI | 1 | opcache.enable_cli |
 | PHP_OPCACHE_ENABLE | 1 | opcache.enable |
 | PHP_OPCACHE_MEMORY_CONSUMPTION | 128 | opcache.memory_consumption |
-| PHP_OPCACHE_MAX_ACCELERATED_FILES | 6000 | opcache.max_accelerated_files |
+| PHP_OPCACHE_MAX_ACCELERATED_FILES | 10000 | opcache.max_accelerated_files |
+| PHP_OPCACHE_REVALIDATE_FREQ | 1 | opcache.revalidate_freq |
 
 ## Exposed Ports
 
@@ -36,7 +34,7 @@ configures a separate data directory.
 | Path | Description |
 | ------------- | ----- |
 | /var/www/html  | www-root directory. |
-| /data | Reserved ownCloud user data directory. |
+| /data | Reserved Nextcloud user data directory. |
 
 ## Input Configration
 
@@ -47,27 +45,23 @@ configures a separate data directory.
 
 ## Test
 
-The docker-compose file `test.yaml` can be used to startup MySQL and the
-Wordpress base containers. The Wordpress installation can be then accessed
-from `localhost:8080`.
+The docker-compose file `test.yaml` can be used to startup the test containers.
 
 ```
-docker-compose -f test.yaml up
+make test | tee log.txt
 ```
 
 ## Optimize php-fpm
 
  ```
-find /var/www/html -iname *.php|wc -l
+find /var/www/html -iname \*.php|wc -l
  ```
 
 ## License
 
-ownCloud is licensed 
-under the [AGPLv3](https://owncloud.org/faq/) license.
+Nextcloud is licensed under the [AGPLv3](https://owncloud.org/faq/) license.
 
-ownCloud Docker image is licensed 
-under the [MIT](https://opensource.org/licenses/MIT) license.
+This docker image is licensed under the [MIT](https://opensource.org/licenses/MIT) license.
 
 Copyright 2017 Erwin Müller
 
