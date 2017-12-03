@@ -1,1 +1,1 @@
-ownCloud image that runs as non-privileged user.
+Nextcloud image that runs as non-privileged user.
