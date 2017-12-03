@@ -1,6 +1,6 @@
 REPOSITORY := robobeerun
 NAME := nextcloud
-VERSION ?= v12.0.3-fpm-r1-1
+VERSION ?= v12.0.3-fpm-r1
 
 build: _build ##@targets Builds the docker image.
 
