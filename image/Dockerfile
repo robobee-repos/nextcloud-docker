@@ -20,6 +20,8 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y \
     rsync \
+    wget \
+    coreutils \
   && rm -rf /var/lib/apt/lists/*
 
 ENV DEBUG="false" \
@@ -47,6 +49,9 @@ RUN set -x \
   && mkdir -p /data \
   && ln -sf /dev/stdout /var/log/php-fpm-slow.log \
   && mv /entrypoint.sh /entrypoint-old.sh
+
+RUN set -x \
+  && bash -x /install-app.sh "https://github.com/sualko/cloud_piwik/releases/download/v0.3.2/owncloud_piwik-0.3.2.tar.gz" "piwik" "5ca1b08354600268bbff3f2ce3ff101b559915910a6022e6a06867f65119cdc1" 
 
 VOLUME ["/data"]
 
