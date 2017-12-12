@@ -24,7 +24,7 @@ services:
       POSTGRESQL_PASSWORD: "nextclouddb"
       POSTGRESQL_DATABASE: "nextclouddb"
     volumes:
-      - "./root/db:/pgdata"
+      - "./root/db:/var/lib/pgsql/data"
 
   nginx:
     image: robobeerun/nginx:latest
