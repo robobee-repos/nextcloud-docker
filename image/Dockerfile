@@ -1,4 +1,4 @@
-FROM nextcloud:12.0.3-fpm
+FROM nextcloud:12.0.4-fpm
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
