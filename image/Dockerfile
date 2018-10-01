@@ -1,4 +1,4 @@
-FROM nextcloud:12.0.4-fpm
+FROM nextcloud:14.0.1-fpm
 LABEL maintainer "Erwin Mueller <erwin.mueller@deventm.com>"
 
 ARG APT_CACHE
@@ -25,6 +25,8 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 ENV DEBUG="false" \
+  SYNC_ENABLED="true" \
+  SYNC_TIME_S="300" \
   WEB_ROOT="/var/www/html" \
   WEB_USER="www-data" \
   PHP_MAX_EXECUTION_TIME="300" \
@@ -34,7 +36,7 @@ ENV DEBUG="false" \
   PHP_FPM_MIN_SPARE_SERVERS="2" \
   PHP_FPM_MAX_SPARE_SERVERS="5" \
   PHP_FPM_MAX_REQUESTS="500" \
-  PHP_FPM_REQUEST_SLOWLOG_TIMEOUT="30s" \
+  PHP_FPM_REQUEST_SLOWLOG_TIMEOUT="0s" \
   PHP_FPM_CATCH_WORKERS_OUTPUT="1" \
   PHP_OPCACHE_ENABLE_CLI="1" \
   PHP_OPCACHE_ENABLE="1" \
@@ -49,9 +51,6 @@ RUN set -x \
   && mkdir -p /data \
   && ln -sf /dev/stdout /var/log/php-fpm-slow.log \
   && mv /entrypoint.sh /entrypoint-old.sh
-
-RUN set -x \
-  && bash -x /install-app.sh "https://github.com/sualko/cloud_piwik/releases/download/v0.3.2/owncloud_piwik-0.3.2.tar.gz" "5ca1b08354600268bbff3f2ce3ff101b559915910a6022e6a06867f65119cdc1" 
 
 VOLUME ["/data"]
 
