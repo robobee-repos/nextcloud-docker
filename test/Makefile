@@ -2,8 +2,6 @@ include ../utils/Makefile.help
 include ../utils/Makefile.functions
 
 export NAME := nextcloud
-export ROOT_DIR := $(shell realpath ./root)
-export NGINX_CONF_DIR := $(shell realpath ./nginx-in)
 
 .PHONY: test
 test: setup ##@targets Starts docker compose.
