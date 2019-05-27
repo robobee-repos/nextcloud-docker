@@ -9,22 +9,31 @@ services:
       - redis
     environment:
       DEBUG: "true"
+      NEXTCLOUD_DATA_DIR: "/data"
+      MYSQL_DATABASE: "nextclouddb"
+      MYSQL_USER: "nextclouddb"
+      MYSQL_PASSWORD: "nextclouddb"
+      MYSQL_HOST: "db"
+      NEXTCLOUD_ADMIN_USER: "admin"
+      NEXTCLOUD_ADMIN_PASSWORD: "admin1234"
+      REDIS_HOST: "redis"
+      REDIS_HOST_PORT: "6379"
     volumes:
       - "./root/html:/var/www/html"
       - "./root/data:/data"
 
   redis:
-    image: robobeerun/redis:latest
+    image: redis:5.0.5
 
   db:
-    image: centos/postgresql-96-centos7:9.6
+    image: bitnami/mariadb:10.1.38-debian-9-r65
     environment:
-      POSTGRESQL_ADMIN_PASSWORD: "admin"
-      POSTGRESQL_USER: "nextclouddb"
-      POSTGRESQL_PASSWORD: "nextclouddb"
-      POSTGRESQL_DATABASE: "nextclouddb"
+      ALLOW_EMPTY_PASSWORD: "yes"
+      MARIADB_USER: "nextclouddb"
+      MARIADB_PASSWORD: "nextclouddb"
+      MARIADB_DATABASE: "nextclouddb"
     volumes:
-      - "./root/db:/var/lib/pgsql/data"
+      - "./root/db:/bitnami/mariadb"
 
   nginx:
     image: robobeerun/nginx:latest
